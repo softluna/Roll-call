@@ -1,0 +1,193 @@
+ <!doctype html>
+<html>
+    <head>
+        <title>XXX点名器</title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                font-family:Arial, Helvetica, sans-serif;
+                font-size:20px;
+                text-align:center;
+                margin:0;
+                padding:0;
+            }
+
+            table {
+                margin-bottom:20px;
+            }
+
+            td {
+                width:100px;
+                height:35px;
+                background:lightgray;
+            }
+
+            .way {
+                background:#fff;
+            }
+
+            .on {
+                background:#c77;
+            }
+
+            .off {
+                background:#fff;
+            }
+
+            .other {
+                background:#77c;
+            }
+
+            .in {
+                background:#7c7;
+            }
+
+            #btn {
+                width:150px;
+                height:50px;
+                background:lightblue;
+                font-size:23px;
+                font-weight:900;              
+                margin-top:20px;
+                cursor:pointer;
+                border:none;
+                border-radius:10px;
+                transition:background 0.3s ease-in-out;
+            }
+
+            #btn:hover {
+                background:#99c;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+        <!--表格-->
+            <table cellspacing="0" border="1" align="center">
+                <caption><h1>GZ25点名器</h1></caption>
+                <!-- 1 -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td rowspan="6" class="way">过道</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- 2 -->
+                <tr>
+                    <td></td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td></td>
+                </tr>
+                <!-- 3 -->
+                <tr>
+                    <td colspan="2" class="other">柱子</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td></td>
+                    <td></td>
+                    <td class="on">AA</td>
+                </tr>
+                <!-- 4 -->
+                <tr>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                </tr>
+                <!-- 5 -->
+                <tr>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td></td>
+                </tr>
+                <!-- 6 -->
+                <tr>
+                    <td></td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td class="on">AA</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="9" >讲台</td>
+                    <td class="other">门</td>
+                </tr>
+            </table>
+        </div>
+        <img id="img" src="image/0.jpg" alt="This is a picture" height="150" />
+        <br />
+        <!-- 开始结束按钮 -->
+        <button id="btn" onclick="start()">开&nbsp;始</button><br/>
+        <b id="stu">Name</b>
+    </body>
+    <script>
+        var timer;
+        var nameNum;
+        var i;
+        var btn = document.getElementById('btn');
+        var pic = document.getElementById('img');
+        var stu = document.getElementById('stu');
+        var u1 = document.getElementsByClassName('on');
+        function start(){
+            if(u1.length == 0){
+                var res = confirm('已经点完了,是否重新加载？');
+                if(res){
+                    window.location.reload();
+                } else {
+                    return;
+                }
+                //alert('已经点完了！');
+                //window.location.reload();
+            }
+            btn.innerHTML = '停&nbsp;止';
+            btn.setAttribute('onclick','stop()');
+            //循环计时器+随机数的应用
+            timer = setInterval(function(){
+                nameNum = Math.floor(Math.random()*u1.length);
+                stu.innerHTML = u1[nameNum].innerHTML;
+                i = Math.floor(Math.random()*43);
+                pic.setAttribute('src','image/'+i+'.jpg');
+            },60);
+        }
+        function stop(){
+            u1[nameNum].setAttribute('class','in');
+            btn.innerHTML = '开&nbsp;始';
+            btn.setAttribute('onclick','start()');
+            clearInterval(timer);
+        }
+    </script>
+</html>
